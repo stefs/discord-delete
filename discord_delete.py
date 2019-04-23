@@ -13,23 +13,26 @@ class Screen(object):
     OFFSET_MENU = 768, 28
 
     def loop(self) -> typing.NoReturn:
+        print('Fail-Safe: Move the mouse cursor to the upper left corner of the screen')
         while True:
             try:
+                print('Delete message ...', end='')
                 self.delete()
-            except PageDone:
+                print(' done')
+            except PageDone as exc:
+                print(f' {exc}')
                 print('Scroll ...', end='')
                 pyautogui.press('pgdn')
                 time.sleep(0.7)
-                print(' done.')
+                print(' done')
 
     def delete(self) -> None:
         # move to name by template
-        print('Delete message ...', end='')
         try:
             location = self.locate(self.TEMPLATE_NAME)
-            pyautogui.moveTo(*location)
         except TemplateNotFound:
-            raise PageDone
+            raise PageDone('no message found')
+        pyautogui.moveTo(*location)
         # move to message menu by offset
         pyautogui.move(self.OFFSET_MENU)
         # find scroll button by template and avoid it
@@ -37,12 +40,15 @@ class Screen(object):
             location_avoid = self.locate(self.TEMPLATE_AVOID)
             location_mouse = pyautogui.position()
             if abs(location_mouse.y - location_avoid.y) < 30:
-                raise PageDone
+                raise PageDone('avoiding scroll button')
         # open message menu
         pyautogui.click()
         time.sleep(0.2)
         # move to delete by template and click it
-        location = self.locate(self.TEMPLATE_DELETE)
+        try:
+            location = self.locate(self.TEMPLATE_DELETE)
+        except TemplateNotFound:
+            raise PageDone('delete menu not found')
         pyautogui.moveTo(*location)
         pyautogui.click()
         time.sleep(0.2)
@@ -50,7 +56,6 @@ class Screen(object):
         location = self.locate(self.TEMPLATE_CONFIRM)
         pyautogui.moveTo(*location)
         pyautogui.click()
-        print(' done.')
         time.sleep(0.2)
 
     @staticmethod
