@@ -48,10 +48,12 @@ class Screen(object):
         try:
             location = self.locate(self.TEMPLATE_DELETE)
         except TemplateNotFound:
+            # FIXME: This also triggers on call messages, because they don't have a message menu,
+            #        so messages to delete might be skipped.
             raise PageDone('delete menu not found')
         pyautogui.moveTo(*location)
         pyautogui.click()
-        time.sleep(0.2)
+        time.sleep(0.4)
         # move to confirm button by template and click it
         location = self.locate(self.TEMPLATE_CONFIRM)
         pyautogui.moveTo(*location)
