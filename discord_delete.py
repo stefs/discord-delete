@@ -14,10 +14,10 @@ class PageDone(Exception):
 
 class Screen(object):
     TEMPLATE_NAME = 'template_name.png'
+    TEMPLATE_DELETE = 'template_delete.png'
     TEMPLATE_AVOID = 'template_avoid.png'
     TEMPLATE_CONFIRM = 'template_confirm.png'
     OFFSET_MENU = 768, 28
-    OFFSET_ACTION = 0, 143
 
     def loop(self):
         while True:
@@ -25,7 +25,7 @@ class Screen(object):
                 self.delete()
             except PageDone:
                 pyautogui.press('pgdn')
-                time.sleep(0.9)
+                time.sleep(0.7)
 
     def delete(self):
         print('template name')
@@ -48,7 +48,8 @@ class Screen(object):
         time.sleep(0.2)
 
         print('click delete')
-        pyautogui.move(*self.OFFSET_ACTION)
+        location = self.locate(self.TEMPLATE_DELETE)
+        pyautogui.moveTo(*location)
         pyautogui.click()
         time.sleep(0.2)
 
