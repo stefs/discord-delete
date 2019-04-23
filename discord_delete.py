@@ -14,10 +14,12 @@ class Screen(object):
 
     def loop(self) -> typing.NoReturn:
         print('Fail-Safe: Move the mouse cursor to the upper left corner of the screen')
+        counter = 1
         while True:
             try:
-                print('Delete message ...', end='')
+                print(f'Delete message {counter} ...', end='')
                 self.delete()
+                counter += 1
                 print(' done')
             except PageDone as exc:
                 print(f' {exc}')
