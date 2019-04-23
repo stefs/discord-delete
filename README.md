@@ -12,3 +12,17 @@ please make sure the value is appropriate for the width of your Discord window.
 
 To stop the script at any time, the PyAutoGUI fail-save mechanism of moving the mouse cursor to the 
 upper left corner of the screen is available.
+
+## Example output
+```
+[...]
+Delete message 50 ... done (4.3 seconds per message)
+Delete message 51 ... done (4.3 seconds per message)
+Delete message 52 ... done (4.3 seconds per message)
+Delete message 53 ... no message found
+Scroll ... done
+Delete message 53 ... done (4.3 seconds per message)
+Delete message 54 ... done (4.3 seconds per message)
+Delete message 55 ... done (4.3 seconds per message)
+Delete message 56 ...
+```

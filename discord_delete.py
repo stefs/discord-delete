@@ -15,12 +15,14 @@ class Screen(object):
     def loop(self) -> typing.NoReturn:
         print('Fail-Safe: Move the mouse cursor to the upper left corner of the screen')
         counter = 1
+        start = time.time()
         while True:
             try:
                 print(f'Delete message {counter} ...', end='')
                 self.delete()
+                speed = (time.time() - start) / counter
                 counter += 1
-                print(' done')
+                print(f' done ({speed:.1f} seconds per message)')
             except PageDone as exc:
                 print(f' {exc}')
                 print('Scroll ...', end='')
