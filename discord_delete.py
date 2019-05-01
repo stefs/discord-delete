@@ -5,21 +5,21 @@ import typing
 import pyautogui
 
 
-class Screen(object):
+class DiscordDelete(object):
     TEMPLATE_NAME = 'template_name.png'
     TEMPLATE_DELETE = 'template_delete.png'
     TEMPLATE_AVOID = 'template_avoid.png'
     TEMPLATE_CONFIRM = 'template_confirm.png'
-    OFFSET_MENU = 768, 28
+    OFFSET_NAME_TO_MESSAGE_MENU = 768, 28
 
-    def loop(self) -> typing.NoReturn:
+    def run(self) -> typing.NoReturn:
         print('Fail-Safe: Move the mouse cursor to the upper left corner of the screen')
         counter = 1
         start = time.time()
         while True:
             try:
                 print(f'Delete message {counter} ...', end='')
-                self.delete()
+                self.delete_message()
                 speed = (time.time() - start) / counter
                 counter += 1
                 print(f' done ({speed:.1f} seconds per message)')
@@ -30,7 +30,7 @@ class Screen(object):
                 time.sleep(0.7)
                 print(' done')
 
-    def delete(self) -> None:
+    def delete_message(self) -> None:
         # move to name by template
         try:
             location = self.locate(self.TEMPLATE_NAME)
@@ -38,7 +38,7 @@ class Screen(object):
             raise PageDone('no message found')
         pyautogui.moveTo(*location)
         # move to message menu by offset
-        pyautogui.move(self.OFFSET_MENU)
+        pyautogui.move(self.OFFSET_NAME_TO_MESSAGE_MENU)
         # find scroll button by template and avoid it
         with contextlib.suppress(TemplateNotFound):
             location_avoid = self.locate(self.TEMPLATE_AVOID)
@@ -81,8 +81,8 @@ class PageDone(Exception):
 
 
 def main() -> typing.NoReturn:
-    screen = Screen()
-    screen.loop()
+    discord_delete = DiscordDelete()
+    discord_delete.run()
 
 
 if __name__ == '__main__':

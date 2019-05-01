@@ -1,4 +1,7 @@
 # discord-delete
+> This is a very low level project and you probably have to understand the code to make it work. I 
+> only made this for my personal use, but maybe someone finds it helpful.
+
 This is a script which deletes all your own messages from a conversation by automatically 
 interacting with the Discord GUI. For this [PyAutoGUI](https://github.com/asweigart/pyautogui) is 
 used, available on PyPi as `pyautogui`. It takes screenshots to find messages and buttons.
