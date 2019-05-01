@@ -5,6 +5,11 @@ import typing
 import pyautogui
 
 
+def main() -> typing.NoReturn:
+    discord_delete = DiscordDelete()
+    discord_delete.run()
+
+
 class DiscordDelete(object):
     TEMPLATE_NAME = 'template_name.png'
     TEMPLATE_DELETE = 'template_delete.png'
@@ -78,11 +83,6 @@ class TemplateNotFound(Exception):
 
 class PageDone(Exception):
     pass
-
-
-def main() -> typing.NoReturn:
-    discord_delete = DiscordDelete()
-    discord_delete.run()
 
 
 if __name__ == '__main__':
